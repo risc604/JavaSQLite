@@ -18,7 +18,7 @@ public class main
 		System.out.println("testJDBC(), in main.");
 	}
 	
-	public static void main(String[] args)
+	public static void main(final String[] args)
 	{
 		testJDBC();
 		

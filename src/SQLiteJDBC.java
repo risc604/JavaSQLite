@@ -11,13 +11,16 @@ import org.sqlite.SQLiteException;
 
 public class SQLiteJDBC 
 {
+	private final String DB_NAME = "data/mt24hr.db";
 	//private final String DBFILE = "jdbc:sqlite:data/mt24hr.db";
-	private final String DBFILE = "jdbc:sqlite:data/test.db";
+	//private final String DBFILE = "jdbc:sqlite:data/test.db";
+	private final String DBFILE = "jdbc:sqlite:" + DB_NAME;
 	
 	public SQLiteJDBC() throws SQLException
 	{
 		Connection con = getConnection();
-		
+		selectAllTemperature(con);
+		/*
 		//建立 Table
 		createTable(con);
 		
@@ -42,6 +45,9 @@ public class SQLiteJDBC
 		
 		//刪除 Table
 		dropTable(con);
+		*/
+		
+		
 		
 		//關閉資料庫, 斷線
 		con.close();
@@ -127,5 +133,39 @@ public class SQLiteJDBC
 			System.out.println(rs.getInt("id") + "\t" + rs.getString("name"));
 		}
 	}
+	
+	public void selectAll(Connection con, String table) throws SQLException
+	{
+		String sql = "select * from " + table;
+		Statement stat = null;
+		ResultSet rs = null;
+		
+		stat = con.createStatement();
+		rs = stat.executeQuery(sql);
+		
+		
+		if(table.equalsIgnoreCase("temperature"))
+		{
+			field[0] = 
+		}
+			while(rs.next())
+			{
+				System.out.printf("%02d, %s, %s, %s, %s !! %n", rs.getInt("temp_id"), 
+						rs.getString("temp_start_time"), rs.getString("temp_data"), 
+						rs.getString("temp_end_time"), rs.getString("temp_uuid"));
+			}
+		}
+		else if(table.equalsIgnoreCase(users))
+		{
+			while(rs.next())
+			{
+				System.out.printf("%02d, %s, %s, %s, %s !! %n", rs.getInt("_id"), 
+						rs.getString("name"), rs.getString(""), 
+						rs.getString("temp_end_time"), rs.getString("temp_uuid"));
+			}
+		}
+	}
+	
+	public 
 	
 }
