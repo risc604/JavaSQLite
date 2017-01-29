@@ -1,11 +1,11 @@
 
-public class fieldObj 
+public class FieldObj 
 {
 	private final int SIZE = 5;
 	int		_id;
 	String[] others;
 	
-	public fieldObj()
+	public FieldObj()
 	{
 		_id = 0;
 		others = new String[SIZE];    
@@ -29,6 +29,11 @@ public class fieldObj
 	public void setOthersFeild(String[] other)
 	{
 		others = other;
+	}
+	
+	public void setField(int idx, String msg)
+	{
+		others[idx] = msg;
 	}
 
 }
