@@ -18,12 +18,14 @@ public class ParserData
 		userList = sqlObj.selectAll(sqlObj.getConnection(), "users");
 		tableInfo(userList);	//debug message
 		
-		tempList = sqlObj.getTempList(sqlObj.getConnection(), userList.get(1).others[3]);
+		//--- all temperature raw data
+		tempList = sqlObj.getTempList(sqlObj.getConnection(), userList.get(2).others[3]);
 		tableInfo(tempList);	//debug message
+		List<byte[]> tempData = getDataList(tempList, tempList.size());
 		
-		int idx = compareDateTime(tempList);
-		
-		List<byte[]> tempData = getDataList(tempList, idx);
+		//-- time in 3 hours.
+		//int idx = compareDateTime(tempList);
+		//List<byte[]> tempData = getDataList(tempList, idx);
 	}
 	
 	public List<byte[]> getDataList(List<FieldObj> srcData, int indx)
@@ -66,7 +68,7 @@ public class ParserData
 	{
 		int tempIdx = 0;
 		Date firstDT = StringToDate(fieldObj.get(0).others[0]);
-		System.out.println("compareDateTime(), firstDT: " + firstDT );
+		System.out.println(", compareDateTime(), firstDT: " + firstDT );
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(firstDT);
 		cal.add(cal.MINUTE, 180);
@@ -79,7 +81,10 @@ public class ParserData
 			System.out.printf(", [%02d]tmpET:%s %n", i, tmpET);
 			
 			if(tmpET.compareTo(cal.getTime()) <= 0)
+			{	
+				System.out.printf(", [%02d]tmpET:%s %n", i, tmpET);
 				endTimeList.add(tmpET);
+			}
 			else
 			{
 				tempIdx = i;
