@@ -78,11 +78,11 @@ public class SQLite3Table
 	//delete
 	public void delete(Connection con, int id, String table) throws SQLException
 	{
-		String sql = "delete from " + table + " where id = ?";
+		String sql = "delete from " + table + " where temp_id = " + id;
 		PreparedStatement pst = null;
 		pst = con.prepareStatement(sql);
-		int idx = 1;
-		pst.setInt(idx++, id);
+		//int idx = 1;
+		//pst.setInt(idx++, id);
 		pst.executeUpdate();
 	}
 	
@@ -207,5 +207,39 @@ public class SQLite3Table
 				
 		return settingList;
 	}
+	
+	public void tableInfo(List<Temperature> tabList)
+	{
+		System.out.printf("%ntableInfo(), tabList size: %02d %n", tabList.size());
+		for (int i=0; i<tabList.size(); i++) 
+		{
+			System.out.printf("[%02d]:%02d, %s, %s, %s, %s, %s !! %n", i, 
+					tabList.get(i).tempID, tabList.get(i).start_time, 
+					tabList.get(i).data, tabList.get(i).end_time , tabList.get(i).uuid, 
+					tabList.get(i).create_date);
+		}
+	}
+	
+	public List<Integer> getTempIdList(List<Temperature> tabList, String userUuid)
+	{
+		List<Integer> tmpIdList = new ArrayList<>();
+		
+		for (int i=0; i<tabList.size(); i++) 
+		{
+			if (tabList.get(i).uuid.equalsIgnoreCase(userUuid)) 
+			{
+				tmpIdList.add(tabList.get(i).tempID);
+			}
+		}
+		
+		//debug
+		for (int i=0; i<tmpIdList.size(); i++) 
+		{
+			System.out.println("[" + i + "]:" + tmpIdList.get(i));
+		}
+		return tmpIdList;
+		
+	}
+	
 
 }
