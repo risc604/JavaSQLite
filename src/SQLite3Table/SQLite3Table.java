@@ -86,6 +86,17 @@ public class SQLite3Table
 		pst.executeUpdate();
 	}
 	
+	//delete
+	public void delete(Connection con, String uuid, String table) throws SQLException
+	{
+		String sql = "delete from " + table + " where " + table + "_uuid " + " = " + "\"" + uuid + "\"";
+		PreparedStatement pst = null;
+		pst = con.prepareStatement(sql);
+		int idx = 1;
+		pst.setNString(idx, uuid);
+		pst.executeUpdate();
+	}
+		
 	//select all user 
 	public List<Users> getAllUser(Connection con) throws SQLException
 	{
@@ -176,18 +187,22 @@ public class SQLite3Table
 		{
 			Setting	settingObj = new Setting();
 			
+			settingObj.set_id				= rs.getInt("set_id");
 			settingObj.connectNotification 	= rs.getInt("bt_notification");
-			settingObj.overTempNotification	= rs.getString("temp_notification");
-			settingObj.tempUnit				= rs.getString("temp_unit");
-			settingObj.userSetHigh			= rs.getString("user_high");
-			settingObj.userSetLow			= rs.getString("user_low");
-			settingObj.sysHigh				= rs.getString("sys_high");
-			settingObj.sysLow				= rs.getString("sys_low");
+			settingObj.overTempNotification	= rs.getInt("temp_notification");
+			settingObj.tempUnit				= rs.getInt("temp_unit");
+			settingObj.userSetHigh			= rs.getInt("user_high");
+			settingObj.userSetLow			= rs.getInt("user_low");
+			settingObj.sysHigh				= rs.getInt("sys_high");
+			settingObj.sysLow				= rs.getInt("sys_low");
 			settingObj.create_date 			= rs.getString("set_create_date");
 			
 			settingList.add(settingObj);
-			//System.out.printf("%02d, %s, %s, %s, %s !! %n", fieldObj._id, fieldObj.others[0], 
-			//		fieldObj.others[1], fieldObj.others[2], fieldObj.others[3], fieldObj.others[4]);
+			System.out.printf("setting table, id:%02d, connect:%02d, overTemp:%02d, tempUnit:%02d," +
+					"userSetHigh:%02d, userSetLow:%02d, sysHigh:%02d, sysLow:%02d, %s !! %n", 
+					settingObj.set_id, settingObj.connectNotification, settingObj.overTempNotification, 
+					settingObj.tempUnit, settingObj.userSetHigh, settingObj.userSetLow, 
+					settingObj.sysHigh, settingObj.userSetLow, settingObj.create_date);
 		}
 				
 		return settingList;

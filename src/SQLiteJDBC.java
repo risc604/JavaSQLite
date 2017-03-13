@@ -167,16 +167,16 @@ public class SQLiteJDBC
 		pst.executeUpdate();
 	}
 	
-	public void delete(Connection con, int id, String table) throws SQLException
+	//delete
+	public void delete(Connection con, String uuid, String table) throws SQLException
 	{
-		String sql = "delete from " + table + " where id = ?";
+		String sql = "delete from " + table + " where " + table + "_uuid " + " = " + "\"" + uuid + "\"";
 		PreparedStatement pst = null;
 		pst = con.prepareStatement(sql);
 		int idx = 1;
-		pst.setInt(idx++, id);
+		pst.setNString(idx, uuid);
 		pst.executeUpdate();
 	}
-	
 	
 	//select All
 	public void selectAll(Connection con) throws SQLException

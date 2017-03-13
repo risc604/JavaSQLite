@@ -2,6 +2,7 @@ package SQLite3Table;
 
 public class Setting 
 {
+	int		set_id;
 	int 	connectNotification;
 	int 	overTempNotification;
 	int 	tempUnit;
@@ -13,6 +14,7 @@ public class Setting
 	
 	public Setting()
 	{
+		set_id = 0;
 		connectNotification = 0;
 		overTempNotification = 0;
 		tempUnit = 0;
@@ -23,8 +25,10 @@ public class Setting
 		create_date = "";
 	}
 	
-	public Setting(int btState, int tempState, int unit, int uHigh, int uLow, int sHigh, int sLow, String createDate)
+	public Setting(	int id, int btState, int tempState, int unit, int uHigh, int uLow, 
+					int sHigh, int sLow, String createDate)
 	{
+		set_id = id;
 		connectNotification = btState;
 		overTempNotification = tempState;
 		tempUnit = unit;
@@ -35,6 +39,16 @@ public class Setting
 		create_date = createDate;
 	}
 	
+	public int getId()
+	{
+		return set_id;
+	}
+		
+	public void setId(int id)
+	{
+		set_id = id;
+	}
+		
 	public int getConnectNotification()
 	{
 		return connectNotification;
@@ -114,9 +128,8 @@ public class Setting
 	 {
 		 create_date = createDate;
 	 }
-	
-	
-	
+		
 }
+
 
 

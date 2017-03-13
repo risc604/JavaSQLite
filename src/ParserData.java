@@ -26,6 +26,8 @@ public class ParserData
 		//-- time in 3 hours.
 		//int idx = compareDateTime(tempList);
 		//List<byte[]> tempData = getDataList(tempList, idx);
+		
+		///sqlObj.delete(sqlObj.getConnection(), "",temperature);
 	}
 	
 	public List<byte[]> getDataList(List<FieldObj> srcData, int indx)
