@@ -46,16 +46,16 @@ public class main
 			
 			tempList = sql3Table.getAllTemprature(sql3Table.getConnection());
 			sql3Table.tableInfo(tempList);
-			List<Integer> deleTempIdList = sql3Table.getTempIdList(tempList, "36caf2d1-c29c-4f41-88f1-2a6855974bf7");
 			
-			for (int i=0; i <deleTempIdList.size(); i++) 
-			{
-				sql3Table.delete(sql3Table.getConnection(), deleTempIdList.get(i), "temperature");
-			}
+			//List<Integer> deleTempIdList = sql3Table.getTempIdList(tempList, "36caf2d1-c29c-4f41-88f1-2a6855974bf7");
+			//for (int i=0; i <deleTempIdList.size(); i++) 
+			//{
+			//	sql3Table.delete(sql3Table.getConnection(), deleTempIdList.get(i), "temperature");
+			//}
 			
 			//debug
-			tempList = sql3Table.getAllTemprature(sql3Table.getConnection());
-			sql3Table.tableInfo(tempList);
+			//tempList = sql3Table.getAllTemprature(sql3Table.getConnection());
+			//sql3Table.tableInfo(tempList);
 			
 		} 
 		catch (SQLException e) 
@@ -63,7 +63,6 @@ public class main
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		
 	}
 	

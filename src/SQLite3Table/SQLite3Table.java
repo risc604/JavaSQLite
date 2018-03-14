@@ -241,5 +241,7 @@ public class SQLite3Table
 		
 	}
 	
+	public 
+	
 
 }
