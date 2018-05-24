@@ -78,7 +78,8 @@ public class Utils
         return data;
     }
     
-    public static String calculateEndTime(int records, String startTime)
+    @SuppressWarnings("deprecation")
+	public static String calculateEndTime(int records, String startTime)
 	{
 		String lastTime = new String();
 		byte[] dateTime = new byte[5];
