@@ -2,8 +2,11 @@
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class Utils 
 {
@@ -77,6 +80,42 @@ public class Utils
 
         return data;
     }
+    
+    public static List<Double> StringDataToList(String srcString)
+    {
+    	if((srcString == null) || (srcString.equalsIgnoreCase("")))
+    		return null;
+    	
+    	System.out.println("srcString: " + srcString);
+ 
+    	int counts = srcString.length() / 6;
+    	
+    	System.out.println("counts: " + counts);
+    	List<Double> dataList = new ArrayList<Double>();
+    	for (int i=0; i<counts; i++) 
+    	{
+    		String s1 = String.valueOf(srcString.toCharArray(), i*6, 4);
+    		byte[] byteTmp = hexStringToByteArray(s1);
+    		Double tmpData = (byteToUnsignedInt(byteTmp[0]) * 100 + byteToUnsignedInt(byteTmp[1])) / 100.0;
+    		System.out.printf("data1: %02d, data2: %02d: %4.2f %n", byteTmp[0], byteTmp[1], tmpData);
+    		
+    		dataList.add(tmpData);	
+		}
+    	
+    	//debug
+    	
+    	
+    	return dataList;
+    }
+    
+    
+    public static LocalDate getDataStartTime(String hexDT) 
+    {
+    	
+		return null;
+	}
+    
+    
     
     @SuppressWarnings("deprecation")
 	public static String calculateEndTime(int records, String startTime)
