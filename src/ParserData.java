@@ -21,6 +21,7 @@ public class ParserData
 		//--- all temperature raw data
 		tempList = sqlObj.getTempList(sqlObj.getConnection(), userList.get(2).others[3]);
 		tableInfo(tempList);	//debug message
+		@SuppressWarnings("unused")
 		List<byte[]> tempData = getDataList(tempList, tempList.size());
 		
 		//-- time in 3 hours.
@@ -98,6 +99,7 @@ public class ParserData
 		return tempIdx;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public Date StringToDate(String srcTime)
 	{
 		//Date tmpDate = new Date();

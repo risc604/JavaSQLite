@@ -16,6 +16,7 @@ public class SQLite3Table
 	private final String DB_NAME = "data/mt24hr.db";
 	private final String DBFILE = "jdbc:sqlite:" + DB_NAME;
 	
+	@SuppressWarnings("unused")
 	public SQLite3Table() throws SQLException
 	{
 		Connection con = getConnection();
@@ -133,23 +134,32 @@ public class SQLite3Table
 	}
 	
 	// select all Temperature
+	@SuppressWarnings("unused")
 	public List<Temperature> getAllTemprature(Connection con) throws SQLException
 	{
 		String	sql = "select * from temperature";
-		Statement stat = null;
-		ResultSet rs = null; 
-		stat = con.createStatement();
-		rs = stat.executeQuery(sql);
+		//Statement stat = null;
+		//ResultSet rs = null; 
+		//stat = con.createStatement();
+		//rs = stat.executeQuery(sql);
+		//Statement stat = con.createStatement();
+		//ResultSet rs = stat.executeQuery(sql);
+		ResultSet rs = con.createStatement().executeQuery(sql);
+		
+		System.out.println("rs rows: " + rs.getRow());
+		
 		List<Temperature>	tempList = new ArrayList<>();
 		
-		if(!rs.next())
+		if(rs == null)
 		{
 			System.out.println("Temperature table is NO Data !!");
 			return null;
 		}
 		
+		//System.out.println("rs.next(): " + rs.next());
 		while(rs.next())
 		{
+			//System.out.println("rs.next(): " + rs.next());
 			Temperature	tempObj = new Temperature();
 			
 			tempObj.tempID 		= rs.getInt("temp_id");
