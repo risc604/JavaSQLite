@@ -1,12 +1,19 @@
 //package ;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import javax.swing.text.DateFormatter;
 
 public class Utils 
 {
@@ -97,7 +104,7 @@ public class Utils
     		String s1 = String.valueOf(srcString.toCharArray(), i*6, 4);
     		byte[] byteTmp = hexStringToByteArray(s1);
     		Double tmpData = (byteToUnsignedInt(byteTmp[0]) * 100 + byteToUnsignedInt(byteTmp[1])) / 100.0;
-    		System.out.printf("data1: %02d, data2: %02d: %4.2f %n", byteTmp[0], byteTmp[1], tmpData);
+    		//System.out.printf("data1: %02d, data2: %02d: %4.2f %n", byteTmp[0], byteTmp[1], tmpData);
     		
     		dataList.add(tmpData);	
 		}
@@ -109,14 +116,53 @@ public class Utils
     }
     
     
-    public static LocalDate getDataStartTime(String hexDT) 
+    public static LocalDateTime getDataStartTime(String hexDT) 
     {
+    	if ((hexDT == null) || (hexDT.equalsIgnoreCase(""))) 
+    	{
+			return null;
+		}
     	
-		return null;
+    	byte[] byteDT = hexStringToByteArray(hexDT);
+    	int[] intDT = new int[byteDT.length];
+    	for (int i=0; i<intDT.length; i++) 
+    	{
+    		intDT[i] = byteToUnsignedInt(byteDT[i]);
+		}    	
+    	System.out.println("intDT: " + Arrays.toString(intDT));
+    	
+    	//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("[yy, MM, dd, HH, mm]");
+    	//LocalDateTime ldStartTime = LocalDateTime.parse( Arrays.toString(intDT), dtf);
+    	LocalDateTime ldStartTime = LocalDateTime.of(intDT[0]+2000, intDT[1], intDT[2], intDT[3], intDT[4]);
+    	System.out.println("ldStartTime: " + ldStartTime);
+    	
+    	
+		return ldStartTime;
 	}
     
     
+	public static List <LocalDateTime> getLocalDateTimeList(LocalDateTime ldtSrc, int records) 
+    {
+    	if ((ldtSrc == null) || (records < 1)) 
+    	{
+			return null;
+		}
+    	LocalDateTime ldtTmp = ldtSrc;
+    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+    	List<LocalDateTime> tmpLDTList = new ArrayList<LocalDateTime>();
+    	for (int i=0; i<records; i++) {
+			tmpLDTList.add(ldtTmp);
+			ldtTmp = ldtTmp.plusMinutes(1);
+		}
+    	
+    	
+    	
+    	System.out.println("tmpLDTList: " + Arrays.toString(tmpLDTList.toArray()));
+	
+    	return tmpLDTList;
+	}
     
+     
     @SuppressWarnings("deprecation")
 	public static String calculateEndTime(int records, String startTime)
 	{
