@@ -13,6 +13,7 @@ import SQLite3Table.Temperature;
 
 
 
+@SuppressWarnings("unused")
 public class main 
 {
 	//public main() {}
@@ -76,7 +77,7 @@ public class main
 		
 	}
 	
-	@SuppressWarnings({ "unused", "null" })
+	//@SuppressWarnings({ "unused", "null" })
 	public static void testSQLite4() 
 	{
 		System.out.println("Test SQLite 3 ...");
@@ -92,7 +93,7 @@ public class main
 			//for (int i=0; i<tempList.size(); i++) {
 			//for (int i=0; i<1; i++) {				
 			String startTime = tempList.get(0).getStartTime();
-			LocalDateTime ldTime = Utils.getDataStartTime(startTime);
+			LocalDateTime ldTime = Utils.getStringToLocalTime(startTime);
 			
 			System.out.println("StartTime: " + startTime + ", ldTime: " + ldTime);
 			dataList = Utils.StringDataToList(tempList.get(0).getData());
@@ -124,7 +125,37 @@ public class main
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	}
+	
+	//@SuppressWarnings("unused")
+	public static void testLocalDateArithmeticOperators() 
+	{		
+		List<Temperature> tempList = null;
+	
+		try 
+		{
+			SQLite3Table sql3Table = new SQLite3Table();
+			tempList = sql3Table.getAllTemprature(sql3Table.getConnection());
+			
+			LocalDateTime[] ldtArray = new LocalDateTime[3];
+			ldtArray[0] = Utils.getStringToLocalTime(tempList.get(0).getStartTime());
+			ldtArray[1] = Utils.getStringToLocalTime(tempList.get(0).getEndTime());
+			//ldtArray[2] = ldtArray[1].minusMinutes(ldtArray[0].getMinute()-1);
+			ldtArray[2] = Utils.getDiffrentDT(ldtArray);
+			int minus = ldtArray[2].getMinute();
+			
+			List<Double> dataList = Utils.StringDataToList(tempList.get(0).getData());
+			
+			System.out.println("ldtArray: " + Arrays.toString(ldtArray)); 
+			System.out.println("different minuse: " + minus);
+			System.out.println("data records: " + dataList.size());
+			
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void main(final String[] args)
@@ -133,9 +164,12 @@ public class main
 		//testParser();
 		
 		//testSQLite3();
-		testSQLite4();
+		//testSQLite4();
+
+		testLocalDateArithmeticOperators();
 		
 		System.out.println("Hello Java for JDBC of SQLite.");
 	}
 
 }
+

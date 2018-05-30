@@ -116,7 +116,7 @@ public class Utils
     }
     
     
-    public static LocalDateTime getDataStartTime(String hexDT) 
+    public static LocalDateTime getStringToLocalTime(String hexDT) 
     {
     	if ((hexDT == null) || (hexDT.equalsIgnoreCase(""))) 
     	{
@@ -139,6 +139,15 @@ public class Utils
     	
 		return ldStartTime;
 	}
+    
+    public static LocalDateTime getDiffrentDT(LocalDateTime[] srcLDT)
+    {
+    	if (srcLDT.length > 1 && (srcLDT.length <= 0)) {
+			return null;
+		}
+    	else    	
+    		return srcLDT[1].minusMinutes(srcLDT[0].getMinute()-1);
+    }
     
     
 	public static List <LocalDateTime> getLocalDateTimeList(LocalDateTime ldtSrc, int records) 
