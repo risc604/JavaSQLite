@@ -140,8 +140,8 @@ public class main
 			LocalDateTime[] ldtArray = new LocalDateTime[3];
 			ldtArray[0] = Utils.getStringToLocalTime(tempList.get(0).getStartTime());
 			ldtArray[1] = Utils.getStringToLocalTime(tempList.get(0).getEndTime());
-			//ldtArray[2] = ldtArray[1].minusMinutes(ldtArray[0].getMinute()-1);
-			ldtArray[2] = Utils.getDiffrentDT(ldtArray);
+			ldtArray[2] = ldtArray[1].minusMinutes(ldtArray[0].getMinute()-1);
+			//ldtArray[2] = Utils.getDiffrentDT(ldtArray);
 			int minus = ldtArray[2].getMinute();
 			
 			List<Double> dataList = Utils.StringDataToList(tempList.get(0).getData());
